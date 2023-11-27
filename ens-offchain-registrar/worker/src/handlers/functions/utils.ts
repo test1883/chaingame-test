@@ -7,28 +7,24 @@ type InsertableKysely = Insertable<ContractInKysely>
 
 /**
  * Parse `texts` and `addresses` from the database into JSON.
- * @param flatName Contract from the database
+ * @param contract Contract from the database
  */
-export function parseNameFromDb(flatName: SelectableKysely): Contract
-export function parseNameFromDb(flatName: SelectableKysely[]): Contract[]
-export function parseNameFromDb(
-  flatName: SelectableKysely | SelectableKysely[]
+export function parseContractFromDB(contract: SelectableKysely): Contract
+export function parseContractFromDB(contract: SelectableKysely[]): Contract[]
+export function parseContractFromDB(
+  contract: SelectableKysely | SelectableKysely[]
 ): Contract | Contract[] {
-  if (Array.isArray(flatName)) {
-    return flatName.map(parseName)
+  if (Array.isArray(contract)) {
+    return contract.map(parseContract)
   }
 
-  return parseName(flatName)
+  return parseContract(contract)
 
-  function parseName(name: SelectableKysely) {
+  function parseContract(contract: SelectableKysely) {
     return {
-      name: name.name,
-      owner: name.owner,
-      addresses: name.addresses ? JSON.parse(name.addresses) : undefined,
-      texts: name.texts ? JSON.parse(name.texts) : undefined,
-      contenthash: name.contenthash || undefined,
-      createdAt: name.createdAt,
-      updatedAt: name.updatedAt,
+      owner: contract.owner,
+      contract: contract.contract,
+      description: contract.description
     }
   }
 }

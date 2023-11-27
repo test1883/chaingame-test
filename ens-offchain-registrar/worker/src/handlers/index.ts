@@ -1,4 +1,4 @@
-export * from './getCcipRead'
-export * from './getName'
-export * from './getNames'
-export * from './setName'
+// export * from './getCcipRead'
+export * from './getContract'
+export * from './getContracts'
+export * from './setContract'

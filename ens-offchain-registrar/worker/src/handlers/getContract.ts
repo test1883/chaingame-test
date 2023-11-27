@@ -4,9 +4,9 @@ import zod from 'zod'
 import { Env } from '../env'
 import { get } from './functions/get'
 
-export async function getName(request: IRequest, env: Env) {
+export async function getContract(request: IRequest, env: Env) {
   const schema = zod.object({
-    name: zod.string().regex(/^[a-z0-9-.]+$/),
+    contract: zod.string(),
   })
   const safeParse = schema.safeParse(request.params)
 
@@ -15,14 +15,14 @@ export async function getName(request: IRequest, env: Env) {
     return Response.json(response, { status: 400 })
   }
 
-  const { name } = safeParse.data
-  const nameData = await get(name, env)
+  const { contract } = safeParse.data
+  const contractData = await get(contract, env)
 
-  if (nameData === null) {
-    return new Response('Name not found', { status: 404 })
+  if (contractData === null) {
+    return new Response('contract not found', { status: 404 })
   }
 
-  return Response.json(nameData, {
+  return Response.json(contractData, {
     status: 200,
   })
 }
