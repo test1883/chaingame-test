@@ -1,57 +1,44 @@
 import { Insertable, Selectable } from 'kysely'
 
-import { Contract, ContractInKysely } from '../../models'
+import { Token, TokenInKysely } from '../../models'
 
-type SelectableKysely = Selectable<ContractInKysely>
-type InsertableKysely = Insertable<ContractInKysely>
+type SelectableKysely = Selectable<TokenInKysely>
+type InsertableKysely = Insertable<TokenInKysely>
 
-/**
- * Parse `texts` and `addresses` from the database into JSON.
- * @param contract Contract from the database
- */
-export function parseContractFromDB(contract: SelectableKysely): Contract
-export function parseContractFromDB(contract: SelectableKysely[]): Contract[]
-export function parseContractFromDB(
-  contract: SelectableKysely | SelectableKysely[]
-): Contract | Contract[] {
-  if (Array.isArray(contract)) {
-    return contract.map(parseContract)
+export function parseTokenFromDB(token: SelectableKysely): Token
+export function parseTokenFromDB(token: SelectableKysely[]): Token[]
+export function parseTokenFromDB(
+  token: SelectableKysely | SelectableKysely[]
+): Token | Token[] {
+  if (Array.isArray(token)) {
+    return token.map(parseToken)
   }
 
-  return parseContract(contract)
+  return parseToken(token)
 
-  function parseContract(contract: SelectableKysely) {
+  function parseToken(token: SelectableKysely) {
     return {
-      owner: contract.owner,
-      contract: contract.contract,
-      description: contract.description
+      ...token,
+      links: JSON.parse(token.links),
     }
   }
 }
 
-/**
- * Stringify `texts` and `addresses` from JSON.
- * @param name Contract to be inserted into the database
- */
-export function stringifyNameForDb(name: Contract): InsertableKysely
-export function stringifyNameForDb(name: Contract[]): InsertableKysely[]
-export function stringifyNameForDb(
-  name: Contract | Contract[]
+export function stringifyTokenForDb(token: Token): InsertableKysely
+export function stringifyTokenForDb(token: Token[]): InsertableKysely[]
+export function stringifyTokenForDb(
+  token: Token | Token[]
 ): InsertableKysely | InsertableKysely[] {
-  if (Array.isArray(name)) {
-    return name.map(stringifyName)
+  if (Array.isArray(token)) {
+    return token.map(stringifyToken)
   }
 
-  return stringifyName(name)
+  return stringifyToken(token)
 
-  function stringifyName(name: Contract) {
+  function stringifyToken(token: Token) {
     return {
-      name: name.name,
-      owner: name.owner,
-      addresses: name.addresses ? JSON.stringify(name.addresses) : null,
-      texts: name.texts ? JSON.stringify(name.texts) : null,
-      contenthash: name.contenthash || null,
-      updatedAt: new Date().toISOString(),
+      ...token,
+      links: JSON.stringify(token.links),
     }
   }
 }
