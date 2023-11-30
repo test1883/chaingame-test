@@ -5,7 +5,8 @@ DROP TABLE IF EXISTS tokenInfo;
 CREATE TABLE IF NOT EXISTS contracts (
 	owner VARCHAR(30) NOT NULL,
 	contract VARCHAR(30) NOT NULL PRIMARY KEY,
-	description TEXT NOT NULL
+	description TEXT NOT NULL,
+    avatar TEXT NOT NULL
 );
 CREATE TABLE IF NOT EXISTS tokens (
 	t_index INT AUTO_INCREMENT  PRIMARY KEY,
@@ -13,7 +14,7 @@ CREATE TABLE IF NOT EXISTS tokens (
     tokenType INT NOT NULL,
     interval INT NOT NULL,
     links TEXT NOT NULL,
-    onLoop BOOLEAN,
+    onLoop BOOLEAN NOT NULL,
     destinationChainSelector BIGINT NOT NULL,
     price INT NOT NULL,
     duration INT NOT NULL

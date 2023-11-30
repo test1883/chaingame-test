@@ -1,18 +1,55 @@
-import { Button, Input } from '@ensdomains/thorin'
+import {
+  Button,
+  MagnifyingGlassSimpleSVG,
+  ScrollBox,
+  Typography,
+} from '@ensdomains/thorin'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import Head from 'next/head'
+import Image from 'next/image'
 import { useState } from 'react'
 import { useAccount, useSignMessage } from 'wagmi'
 
-import { Footer } from '@/components/Footer'
 import { useDebounce } from '@/hooks/useDebounce'
 import { useFetch } from '@/hooks/useFetch'
-import { Card, Form, Helper, Link, Spacer } from '@/styles'
+import {
+  Content,
+  Contract,
+  Form,
+  Header,
+  Helper,
+  Input,
+  Link,
+  Page,
+  Right,
+  Sidebar,
+  Spacer,
+} from '@/styles'
 import { WorkerRequest } from '@/types'
 
-export default function App() {
+import styles from './styles.module.css'
+
+interface contract {
+  owner: string
+  contract: string
+  description: string
+  avatar: string
+}
+
+export const getServerSideProps: () => Promise<{
+  props: { contracts: contract[] }
+}> = async () => {
+  const res = await fetch('http://127.0.0.1:8787/contracts')
+  const contracts = await res.json()
+  return { props: { contracts } }
+}
+
+export default function App(props: any) {
   const { address } = useAccount()
 
+  const [selectContract, setSelectedContract] = useState<number | undefined>(
+    undefined
+  )
   const [name, setName] = useState<string | undefined>(undefined)
   const [description, setDescription] = useState<string | undefined>(undefined)
 
@@ -37,12 +74,11 @@ export default function App() {
     data: gatewayData,
     error: gatewayError,
     isLoading: gatewayIsLoading,
-  } = useFetch(data && 'https://ens-gateway.gregskril.workers.dev/set', {
-    method: 'POST',
+  } = useFetch('http://127.0.0.1:8787/contracts', {
+    method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(requestBody),
   })
 
   return (
@@ -60,68 +96,69 @@ export default function App() {
         />
       </Head>
 
-      <Spacer />
+      {/* <Spacer /> */}
 
-      <Card>
-        <ConnectButton showBalance={false} />
-
-        <Form
-          onSubmit={(e) => {
-            e.preventDefault()
-            signMessage({
-              message: `Register ${debouncedName}.offchaindemo.eth`,
-            })
-          }}
-        >
+      <Page>
+        <Header>
+          <ConnectButton showBalance={false} />
+        </Header>
+        <Sidebar>
           <Input
-            type="text"
-            label="Name"
-            suffix=".offchaindemo.eth"
-            placeholder="ens"
-            required
-            disabled={!!data || !address}
-            onChange={(e) => setName(e.target.value)}
+            label=""
+            parentStyles={{ backgroundColor: 'transparent !important' }}
+            icon={<MagnifyingGlassSimpleSVG />}
+            placeholder="Search contract"
           />
-
+          <ScrollBox style={{ height: '350px', width: '100%' }}>
+            {props.contracts.map((c: contract, key: number) => {
+              return (
+                <Contract
+                  onClick={() => {
+                    if (selectContract !== undefined) {
+                      document.getElementsByClassName(
+                        styles.selected
+                      )[0].styles.background = 'none'
+                    }
+                    setSelectedContract(key)
+                  }}
+                  className={selectContract === key ? styles.selected : ''}
+                  style={{
+                    backgroundColor: selectContract === key ? 'blue' : 'none',
+                  }}
+                  key={key}
+                >
+                  <Image
+                    src={c.avatar}
+                    width="50"
+                    height="50"
+                    alt="avatar"
+                    style={{ borderRadius: '100%' }}
+                  />
+                  <div>
+                    <Typography color="white">
+                      {c.contract.slice(0, 3) +
+                        '...' +
+                        c.contract.slice(
+                          c.contract.length - 4,
+                          c.contract.length - 1
+                        )}
+                    </Typography>
+                  </div>
+                </Contract>
+              )
+            })}
+          </ScrollBox>
+        </Sidebar>
+        <Content>
           <Input
-            type="text"
-            label="Description"
-            placeholder="Your portable web3 profile"
-            disabled={!!data || !address}
-            onChange={(e) => setDescription(e.target.value)}
+            label=""
+            icon={<MagnifyingGlassSimpleSVG />}
+            placeholder="Search NFT"
           />
-
-          <Button
-            type="submit"
-            disabled={!enabled || !!data}
-            loading={isLoading || gatewayIsLoading}
-          >
-            Register
-          </Button>
-        </Form>
-
-        {gatewayError ? (
-          <Helper type="error">
-            {gatewayError.message === 'Conflict'
-              ? 'Somebody already registered that name'
-              : 'Something went wrong'}
-          </Helper>
-        ) : gatewayData ? (
-          <Helper>
-            <p>
-              Visit the{' '}
-              <Link href={`https://ens.app/${debouncedName}.offchaindemo.eth`}>
-                ENS Manager
-              </Link>{' '}
-              to see your name
-            </p>
-          </Helper>
-        ) : !!debouncedName && !enabled ? (
-          <Helper type="error">Name must be lowercase alphanumeric</Helper>
-        ) : null}
-      </Card>
-
-      <Footer />
+        </Content>
+        <Right></Right>
+        {/* <Footer></Footer> */}
+      </Page>
     </>
   )
 }

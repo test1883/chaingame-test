@@ -4,6 +4,7 @@ export const ZodContract = z.object({
   owner: z.string(),
   contract: z.string(),
   description: z.string(),
+  avatar: z.string()
 })
 
 export const ZodContractWithSignature = ZodContract.extend({

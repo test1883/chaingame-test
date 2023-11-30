@@ -5,9 +5,8 @@ export const Layout = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
-  max-width: 30rem;
-  min-height: 100svh;
   margin: 0 auto;
-  gap: 2rem;
+  box-sizing: border-box;
+  background: #050528;
+  background: linear-gradient(135deg, #050528, #41308f);
 `

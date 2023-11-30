@@ -1,5 +1,8 @@
-import { ThorinGlobalStyles, lightTheme } from '@ensdomains/thorin'
-import { RainbowKitProvider } from '@rainbow-me/rainbowkit'
+import { ThorinGlobalStyles, darkTheme } from '@ensdomains/thorin'
+import {
+  RainbowKitProvider,
+  darkTheme as darkThemeRk,
+} from '@rainbow-me/rainbowkit'
 import '@rainbow-me/rainbowkit/styles.css'
 import { AppProps } from 'next/app'
 import React from 'react'
@@ -15,12 +18,17 @@ export default function App({ Component, pageProps }: AppProps) {
   const isMounted = useIsMounted()
 
   return (
-    <ThemeProvider theme={lightTheme}>
+    <ThemeProvider theme={darkTheme}>
       <ThorinGlobalStyles />
       <WagmiConfig config={wagmiConfig}>
-        <RainbowKitProvider chains={chains} modalSize="compact">
-          <Layout>{isMounted && <Component {...pageProps} />}</Layout>
-        </RainbowKitProvider>
+        <RainbowKitProvider
+          chains={chains}
+          theme={darkThemeRk()}
+          modalSize="wide"
+          children={
+            <Layout>{isMounted && <Component {...pageProps} />}</Layout>
+          }
+        ></RainbowKitProvider>
       </WagmiConfig>
     </ThemeProvider>
   )

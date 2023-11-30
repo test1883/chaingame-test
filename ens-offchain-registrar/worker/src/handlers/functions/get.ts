@@ -2,7 +2,10 @@ import { createKysely } from '../../db/kysely'
 import { Env } from '../../env'
 import { Contract } from '../../models'
 
-export async function get(contract: string, env: Env): Promise<Contract | null> {
+export async function get(
+  contract: string,
+  env: Env
+): Promise<Contract | null> {
   const db = createKysely(env)
   const record = await db
     .selectFrom('contracts')
