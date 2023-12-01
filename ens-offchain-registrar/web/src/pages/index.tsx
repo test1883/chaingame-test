@@ -10,6 +10,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { useAccount, useSignMessage } from 'wagmi'
 
+import { NFT } from '@/components/NFT'
 import { useDebounce } from '@/hooks/useDebounce'
 import { useFetch } from '@/hooks/useFetch'
 import {
@@ -20,6 +21,7 @@ import {
   Helper,
   Input,
   Link,
+  NFTView,
   Page,
   Right,
   Sidebar,
@@ -35,7 +37,6 @@ interface contract {
   description: string
   avatar: string
 }
-
 export const getServerSideProps: () => Promise<{
   props: { contracts: contract[] }
 }> = async () => {
@@ -50,6 +51,7 @@ export default function App(props: any) {
   const [selectContract, setSelectedContract] = useState<number | undefined>(
     undefined
   )
+  const [tokens, setTokens] = useState<any>(undefined)
   const [name, setName] = useState<string | undefined>(undefined)
   const [description, setDescription] = useState<string | undefined>(undefined)
 
@@ -58,7 +60,23 @@ export default function App(props: any) {
   const enabled = !!debouncedName && regex.test(debouncedName)
 
   const { data, isLoading, signMessage, variables } = useSignMessage()
-
+  const changeContract = async (c: contract, key: number) => {
+    if (selectContract !== undefined && selectContract !== key) {
+      document.getElementsByClassName(styles.selected)[0].style.background =
+        'none'
+    }
+    if (selectContract !== key) {
+      setSelectedContract(key)
+      const res = await fetch('http://127.0.0.1:8787/get-tokens', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ receiver: c.contract }),
+      })
+      setTokens(await res.json())
+    }
+  }
   const requestBody: WorkerRequest = {
     name: `${debouncedName}.offchaindemo.eth`,
     owner: address!,
@@ -69,17 +87,6 @@ export default function App(props: any) {
       message: variables?.message!,
     },
   }
-
-  const {
-    data: gatewayData,
-    error: gatewayError,
-    isLoading: gatewayIsLoading,
-  } = useFetch('http://127.0.0.1:8787/contracts', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
 
   return (
     <>
@@ -113,17 +120,11 @@ export default function App(props: any) {
             {props.contracts.map((c: contract, key: number) => {
               return (
                 <Contract
-                  onClick={() => {
-                    if (selectContract !== undefined) {
-                      document.getElementsByClassName(
-                        styles.selected
-                      )[0].styles.background = 'none'
-                    }
-                    setSelectedContract(key)
-                  }}
+                  onClick={() => changeContract(c, key)}
                   className={selectContract === key ? styles.selected : ''}
                   style={{
-                    backgroundColor: selectContract === key ? 'blue' : 'none',
+                    backgroundColor:
+                      selectContract === key ? '#1A43BF' : 'none',
                   }}
                   key={key}
                 >
@@ -135,7 +136,7 @@ export default function App(props: any) {
                     style={{ borderRadius: '100%' }}
                   />
                   <div>
-                    <Typography color="white">
+                    <Typography style={{ color: 'white' }}>
                       {c.contract.slice(0, 3) +
                         '...' +
                         c.contract.slice(
@@ -155,6 +156,11 @@ export default function App(props: any) {
             icon={<MagnifyingGlassSimpleSVG />}
             placeholder="Search NFT"
           />
+          {tokens !== undefined && (
+            <NFTView>
+              <NFT {...tokens[0]} />
+            </NFTView>
+          )}
         </Content>
         <Right></Right>
         {/* <Footer></Footer> */}

@@ -12,6 +12,11 @@ const nextConfig = {
         hostname: 'rose-melodic-felidae-510.mypinata.cloud',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'ipfs.io',
+        port: '',
+      },
     ],
   },
 }

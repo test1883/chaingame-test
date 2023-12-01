@@ -11,19 +11,19 @@ CREATE TABLE IF NOT EXISTS contracts (
 CREATE TABLE IF NOT EXISTS tokens (
 	t_index INT AUTO_INCREMENT  PRIMARY KEY,
 	receiver VARCHAR(30) NOT NULL,
-    tokenType INT NOT NULL,
+    token_type INT NOT NULL,
     interval INT NOT NULL,
     links TEXT NOT NULL,
-    onLoop BOOLEAN NOT NULL,
-    destinationChainSelector BIGINT NOT NULL,
+    on_loop BOOLEAN NOT NULL,
+    destination_chain_selector BIGINT NOT NULL,
     price INT NOT NULL,
     duration INT NOT NULL
 );
 CREATE TABLE IF NOT EXISTS tokenInfo (
 	t_index INT NOT NULL,
-	tokenIndex INT AUTO_INCREMENT  PRIMARY KEY,
+	token_index INT AUTO_INCREMENT  PRIMARY KEY,
     owner VARCHAR(30) NOT NULL,
-    lastUpdated INT NOT NULL,
-    currLink TINYINT NOT NULL,
-    activeTill INT NOT NULL
+    last_updated INT NOT NULL,
+    curr_link TINYINT NOT NULL,
+    active_till INT NOT NULL
 );
