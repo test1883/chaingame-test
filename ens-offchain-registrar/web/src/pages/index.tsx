@@ -92,12 +92,12 @@ export default function App(props: any) {
   const signer = useEthersSigner()
   const test = async () => {
     const contract = new ethers.Contract(
-      '0x34f4DD20500CfD8a66fa44c3A2D36A6A3510dDC1',
+      '0xaf256dE2d2766fd06BA18df5FDcd77f98e084C6f',
       Chaingame_abi,
       signer
     )
     await contract.createToken(
-      121,
+      1568,
       2,
       '0x0a8f4c59caafa0c9648abdafdb225f3b4c7c3ef2',
       2,
