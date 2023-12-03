@@ -23,7 +23,9 @@ export default function App({ Component, pageProps }: AppProps) {
       <WagmiConfig config={wagmiConfig}>
         <RainbowKitProvider
           chains={chains}
-          theme={darkThemeRk()}
+          theme={darkThemeRk({
+            accentColor: '#1A43BF',
+          })}
           modalSize="wide"
           children={
             <Layout>{isMounted && <Component {...pageProps} />}</Layout>

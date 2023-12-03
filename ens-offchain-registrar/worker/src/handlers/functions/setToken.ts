@@ -6,6 +6,6 @@ import { stringifyTokenForDb } from './utils'
 export async function setToken(tokenData: Token, env: Env) {
   const db = createKysely(env)
   const body = stringifyTokenForDb(tokenData)
-
+  console.log(JSON.stringify(body))
   await db.insertInto('tokens').values(body).execute()
 }

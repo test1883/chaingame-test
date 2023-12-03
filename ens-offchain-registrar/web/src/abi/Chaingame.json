@@ -1,0 +1,181 @@
+{
+	"abi": [
+		{
+			"inputs": [
+				{
+					"internalType": "uint256[3]",
+					"name": "_prices",
+					"type": "uint256[3]"
+				},
+				{
+					"internalType": "string[]",
+					"name": "_urls",
+					"type": "string[]"
+				}
+			],
+			"stateMutability": "nonpayable",
+			"type": "constructor"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "sender",
+					"type": "address"
+				},
+				{
+					"internalType": "string[]",
+					"name": "urls",
+					"type": "string[]"
+				},
+				{
+					"internalType": "bytes",
+					"name": "callData",
+					"type": "bytes"
+				},
+				{
+					"internalType": "bytes4",
+					"name": "callbackFunction",
+					"type": "bytes4"
+				},
+				{
+					"internalType": "bytes",
+					"name": "extraData",
+					"type": "bytes"
+				}
+			],
+			"name": "OffchainLookup",
+			"type": "error"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "index",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint64",
+					"name": "destinationChainSelector",
+					"type": "uint64"
+				},
+				{
+					"internalType": "address",
+					"name": "receiver",
+					"type": "address"
+				},
+				{
+					"internalType": "enum TokenType",
+					"name": "tokenType",
+					"type": "uint8"
+				},
+				{
+					"internalType": "uint256",
+					"name": "interval",
+					"type": "uint256"
+				},
+				{
+					"internalType": "bool",
+					"name": "onLoop",
+					"type": "bool"
+				},
+				{
+					"internalType": "string[]",
+					"name": "links",
+					"type": "string[]"
+				},
+				{
+					"internalType": "uint256",
+					"name": "price",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint256",
+					"name": "duration",
+					"type": "uint256"
+				}
+			],
+			"name": "createToken",
+			"outputs": [],
+			"stateMutability": "payable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "bytes",
+					"name": "",
+					"type": "bytes"
+				},
+				{
+					"internalType": "bytes",
+					"name": "extraData",
+					"type": "bytes"
+				}
+			],
+			"name": "createTokenWithSignature",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"name": "prices",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [],
+			"name": "temp",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "",
+					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"name": "tokenPrice",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"stateMutability": "payable",
+			"type": "receive"
+		}
+	]}

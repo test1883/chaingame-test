@@ -1,0 +1,121 @@
+{
+    "abi": [
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "owner",
+					"type": "address"
+				},
+				{
+					"internalType": "address",
+					"name": "receiver",
+					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "tokenIndex",
+					"type": "uint256"
+				}
+			],
+			"name": "buyToken",
+			"outputs": [
+				{
+					"internalType": "bytes",
+					"name": "sig",
+					"type": "bytes"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "index",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint64",
+					"name": "destinationChainSelector",
+					"type": "uint64"
+				},
+				{
+					"internalType": "address",
+					"name": "receiver",
+					"type": "address"
+				},
+				{
+					"internalType": "enum TokenType",
+					"name": "tokenType",
+					"type": "uint8"
+				},
+				{
+					"internalType": "uint256",
+					"name": "interval",
+					"type": "uint256"
+				},
+				{
+					"internalType": "bool",
+					"name": "onLoop",
+					"type": "bool"
+				},
+				{
+					"internalType": "string[]",
+					"name": "links",
+					"type": "string[]"
+				},
+				{
+					"internalType": "uint256",
+					"name": "price",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint256",
+					"name": "duration",
+					"type": "uint256"
+				}
+			],
+			"name": "createToken",
+			"outputs": [
+				{
+					"internalType": "bytes",
+					"name": "sig",
+					"type": "bytes"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "owner",
+					"type": "address"
+				},
+				{
+					"internalType": "address",
+					"name": "contractAdd",
+					"type": "address"
+				},
+				{
+					"internalType": "string",
+					"name": "desc",
+					"type": "string"
+				}
+			],
+			"name": "registerContract",
+			"outputs": [
+				{
+					"internalType": "bytes",
+					"name": "sig",
+					"type": "bytes"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		}
+	]
+}

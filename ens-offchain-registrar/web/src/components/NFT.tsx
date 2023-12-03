@@ -1,11 +1,11 @@
 'use client'
 
-import { Button, Heading, Card as ThorinCard } from '@ensdomains/thorin'
+import { Heading, Card as ThorinCard } from '@ensdomains/thorin'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
-import { Link } from '@/styles'
+import { Button, Link } from '@/styles'
 
 const Card: any = styled(ThorinCard)`
   border: 0px;

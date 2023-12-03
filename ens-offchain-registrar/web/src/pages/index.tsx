@@ -2,9 +2,11 @@ import {
   Button,
   MagnifyingGlassSimpleSVG,
   ScrollBox,
+  Toggle,
   Typography,
 } from '@ensdomains/thorin'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
+import { ethers } from 'ethers'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useState } from 'react'
@@ -18,6 +20,8 @@ import {
   Contract,
   Form,
   Header,
+  HeaderLogo,
+  HeaderNav,
   Helper,
   Input,
   Link,
@@ -28,7 +32,9 @@ import {
   Spacer,
 } from '@/styles'
 import { WorkerRequest } from '@/types'
+import { useEthersSigner } from '@/utils/ethers'
 
+import { abi as Chaingame_abi } from '../abi/Chaingame.json'
 import styles from './styles.module.css'
 
 interface contract {
@@ -77,6 +83,28 @@ export default function App(props: any) {
       setTokens(await res.json())
     }
   }
+
+  const signer = useEthersSigner()
+  const test = async () => {
+    const contract = new ethers.Contract(
+      '0xae3Be5a9a458349a1E8C196E2e3a0C09F1f28783',
+      Chaingame_abi,
+      signer
+    )
+    await contract.createToken(
+      595,
+      2,
+      '0x0a8f4c59caafa0c9648abdafdb225f3b4c7c3ef2',
+      2,
+      2000,
+      true,
+      ['hehe'],
+      2000,
+      20000,
+      { value: '100000000000' }
+    )
+  }
+
   const requestBody: WorkerRequest = {
     name: `${debouncedName}.offchaindemo.eth`,
     owner: address!,
@@ -107,7 +135,19 @@ export default function App(props: any) {
 
       <Page>
         <Header>
-          <ConnectButton showBalance={false} />
+          <HeaderLogo>ChainGame</HeaderLogo>
+          <HeaderNav>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <div>Developer Mode</div> <Toggle size="small" />{' '}
+            </div>
+            <ConnectButton showBalance={false} />
+          </HeaderNav>
         </Header>
         <Sidebar>
           <Input
@@ -158,11 +198,14 @@ export default function App(props: any) {
           />
           {tokens !== undefined && (
             <NFTView>
+              {JSON.stringify(tokens)}
               <NFT {...tokens[0]} />
             </NFTView>
           )}
         </Content>
-        <Right></Right>
+        <Right>
+          <Button onClick={test}>H</Button>
+        </Right>
         {/* <Footer></Footer> */}
       </Page>
     </>

@@ -1,4 +1,5 @@
 import {
+  Button as ThorinButton,
   Card as ThorinCard,
   Helper as ThorinHelper,
   Input as ThorinInput,
@@ -29,48 +30,37 @@ export const Form = styled.form`
 export const Input = styled(ThorinInput)`
   background: none;
 `
-
-export const Header = styled(ThorinCard)`
+export const CardTemp = styled(ThorinCard)`
   width: 100%;
   align-items: center;
+  gap: 1.5rem;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: saturate(180%) blur(10px);
+  border: 0px;
+`
+export const Header = styled(CardTemp)`
+  display: flex;
+  flex-direction: row;
   grid-area: header;
-  gap: 1.5rem;
-  justify-content: center;
-  border-radius: 20px;
-  background: rgba(0, 0, 0, 0.65);
-  backdrop-filter: saturate(180%) blur(10px);
-  border: 0px;
+  justify-content: space-between;
 `
-export const Sidebar = styled(ThorinCard)`
-  width: 100%;
-  align-items: center;
-  gap: 1.5rem;
-  grid-area: sidebar;
-  border-radius: 20px;
-  background: rgba(0, 0, 0, 0.65);
-  backdrop-filter: saturate(180%) blur(10px);
-  border: 0px;
-`
-export const Content = styled(ThorinCard)`
-  width: 100%;
-  align-items: center;
-  gap: 1.5rem;
-  grid-area: content;
-  border-radius: 20px;
-  border: 0px;
-  background: rgba(0, 0, 0, 0.65);
-  backdrop-filter: saturate(180%) blur(10px);
+export const HeaderLogo = styled.div``
+export const HeaderNav = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 `
 
-export const Right = styled(ThorinCard)`
-  width: 100%;
-  align-items: center;
-  gap: 1.5rem;
+export const Sidebar = styled(CardTemp)`
+  grid-area: sidebar;
+`
+export const Content = styled(CardTemp)`
+  grid-area: content;
+`
+
+export const Right = styled(CardTemp)`
   grid-area: right;
-  border-radius: 20px;
-  border: 0px;
-  background: rgba(0, 0, 0, 0.65);
-  backdrop-filter: saturate(180%) blur(10px);
 `
 
 export const Link = styled.a.attrs({
@@ -86,6 +76,10 @@ export const Link = styled.a.attrs({
     }
   `
 )
+
+export const Button = styled(ThorinButton)`
+  background-color: #1a43bf;
+`
 
 export const Helper = styled(ThorinHelper)`
   svg {
