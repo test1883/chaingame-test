@@ -46,7 +46,9 @@ interface contract {
 export const getServerSideProps: () => Promise<{
   props: { contracts: contract[] }
 }> = async () => {
-  const res = await fetch('http://127.0.0.1:8787/contracts')
+  const res = await fetch(
+    'https://8787-test1883-chaingametest-7s9ufogv9y7.ws-us106.gitpod.io/contracts'
+  )
   const contracts = await res.json()
   return { props: { contracts } }
 }
@@ -73,13 +75,16 @@ export default function App(props: any) {
     }
     if (selectContract !== key) {
       setSelectedContract(key)
-      const res = await fetch('http://127.0.0.1:8787/get-tokens', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ receiver: c.contract }),
-      })
+      const res = await fetch(
+        'https://8787-test1883-chaingametest-7s9ufogv9y7.ws-us106.gitpod.io/get-tokens',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ receiver: c.contract }),
+        }
+      )
       setTokens(await res.json())
     }
   }
@@ -87,12 +92,12 @@ export default function App(props: any) {
   const signer = useEthersSigner()
   const test = async () => {
     const contract = new ethers.Contract(
-      '0xae3Be5a9a458349a1E8C196E2e3a0C09F1f28783',
+      '0x34f4DD20500CfD8a66fa44c3A2D36A6A3510dDC1',
       Chaingame_abi,
       signer
     )
     await contract.createToken(
-      595,
+      121,
       2,
       '0x0a8f4c59caafa0c9648abdafdb225f3b4c7c3ef2',
       2,
@@ -100,8 +105,7 @@ export default function App(props: any) {
       true,
       ['hehe'],
       2000,
-      20000,
-      { value: '100000000000' }
+      20000
     )
   }
 

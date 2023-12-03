@@ -97,7 +97,7 @@
 			],
 			"name": "createToken",
 			"outputs": [],
-			"stateMutability": "payable",
+			"stateMutability": "view",
 			"type": "function"
 		},
 		{
@@ -139,12 +139,25 @@
 		},
 		{
 			"inputs": [],
-			"name": "temp",
+			"name": "re",
 			"outputs": [
 				{
-					"internalType": "uint256",
+					"internalType": "address",
 					"name": "",
-					"type": "uint256"
+					"type": "address"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [],
+			"name": "si",
+			"outputs": [
+				{
+					"internalType": "address",
+					"name": "",
+					"type": "address"
 				}
 			],
 			"stateMutability": "view",
@@ -178,4 +191,5 @@
 			"stateMutability": "payable",
 			"type": "receive"
 		}
-	]}
+	]
+}
