@@ -137,7 +137,7 @@ type DestinationMinterConstructorParams =
   | ConstructorParameters<typeof ContractFactory>;
 
 const isSuperArgs = (
-  xs: DestinationMinterConstructorParams
+  xs: DestinationMinterConstructorParams,
 ): xs is ConstructorParameters<typeof ContractFactory> => xs.length > 1;
 
 export class DestinationMinter__factory extends ContractFactory {
@@ -152,18 +152,18 @@ export class DestinationMinter__factory extends ContractFactory {
   override deploy(
     router: PromiseOrValue<string>,
     nftAddress: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<DestinationMinter> {
     return super.deploy(
       router,
       nftAddress,
-      overrides || {}
+      overrides || {},
     ) as Promise<DestinationMinter>;
   }
   override getDeployTransaction(
     router: PromiseOrValue<string>,
     nftAddress: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): TransactionRequest {
     return super.getDeployTransaction(router, nftAddress, overrides || {});
   }
@@ -181,7 +181,7 @@ export class DestinationMinter__factory extends ContractFactory {
   }
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider
+    signerOrProvider: Signer | Provider,
   ): DestinationMinter {
     return new Contract(address, _abi, signerOrProvider) as DestinationMinter;
   }

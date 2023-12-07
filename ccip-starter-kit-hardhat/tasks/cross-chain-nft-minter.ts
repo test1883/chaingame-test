@@ -21,11 +21,11 @@ import { getCcipMessageId } from "./helpers";
 
 task(
   `deploy-destination-cross-chain-nft-minter`,
-  `Deploys MyNFT.sol and DestinationMinter.sol smart contracts`
+  `Deploys MyNFT.sol and DestinationMinter.sol smart contracts`,
 )
   .addOptionalParam(
     `router`,
-    `The address of the Router contract on the destination blockchain`
+    `The address of the Router contract on the destination blockchain`,
   )
   .setAction(
     async (taskArguments: TaskArguments, hre: HardhatRuntimeEnvironment) => {
@@ -43,29 +43,29 @@ task(
       const spinner: Spinner = new Spinner();
 
       console.log(
-        `ℹ️  Attempting to deploy MyNFT smart contract on the ${hre.network.name} blockchain using ${deployer.address} address`
+        `ℹ️  Attempting to deploy MyNFT smart contract on the ${hre.network.name} blockchain using ${deployer.address} address`,
       );
       spinner.start();
 
       const myNftFactory: MyNFT__factory = (await hre.ethers.getContractFactory(
-        "MyNFT"
+        "MyNFT",
       )) as MyNFT__factory;
       const myNft: MyNFT = await myNftFactory.deploy();
       await myNft.deployed();
 
       spinner.stop();
       console.log(
-        `✅ MyNFT contract deployed at address ${myNft.address} on the ${hre.network.name} blockchain`
+        `✅ MyNFT contract deployed at address ${myNft.address} on the ${hre.network.name} blockchain`,
       );
 
       console.log(
-        `ℹ️  Attempting to deploy DestinationMinter smart contract on the ${hre.network.name} blockchain using ${deployer.address} address, with the Router address ${routerAddress} provided as constructor argument`
+        `ℹ️  Attempting to deploy DestinationMinter smart contract on the ${hre.network.name} blockchain using ${deployer.address} address, with the Router address ${routerAddress} provided as constructor argument`,
       );
       spinner.start();
 
       const destinationMinterFactory: DestinationMinter__factory =
         (await hre.ethers.getContractFactory(
-          "DestinationMinter"
+          "DestinationMinter",
         )) as DestinationMinter__factory;
       const destinationMinter: DestinationMinter =
         await destinationMinterFactory.deploy(routerAddress, myNft.address);
@@ -73,11 +73,11 @@ task(
 
       spinner.stop();
       console.log(
-        `✅ DestinationMinter contract deployed at address ${destinationMinter.address} on the ${hre.network.name} blockchain`
+        `✅ DestinationMinter contract deployed at address ${destinationMinter.address} on the ${hre.network.name} blockchain`,
       );
 
       console.log(
-        `ℹ️  Attempting to grant the minter role to the DestinationMinter smart contract`
+        `ℹ️  Attempting to grant the minter role to the DestinationMinter smart contract`,
       );
       spinner.start();
 
@@ -86,18 +86,18 @@ task(
 
       spinner.stop();
       console.log(
-        `✅ DestinationMinter can now mint MyNFTs. Transaction hash: ${tx.hash}`
+        `✅ DestinationMinter can now mint MyNFTs. Transaction hash: ${tx.hash}`,
       );
-    }
+    },
   );
 
 task(
   `deploy-source-cross-chain-nft-minter`,
-  `Deploys SourceMinter.sol smart contract`
+  `Deploys SourceMinter.sol smart contract`,
 )
   .addOptionalParam(
     `router`,
-    `The address of the Router contract on the source blockchain`
+    `The address of the Router contract on the source blockchain`,
   )
   .setAction(
     async (taskArguments: TaskArguments, hre: HardhatRuntimeEnvironment) => {
@@ -118,43 +118,43 @@ task(
       const spinner: Spinner = new Spinner();
 
       console.log(
-        `ℹ️  Attempting to deploy SourceMinter smart contract on the ${hre.network.name} blockchain using ${deployer.address} address, with the Router address ${routerAddress} and LINK address ${linkAddress} provided as constructor arguments`
+        `ℹ️  Attempting to deploy SourceMinter smart contract on the ${hre.network.name} blockchain using ${deployer.address} address, with the Router address ${routerAddress} and LINK address ${linkAddress} provided as constructor arguments`,
       );
       spinner.start();
 
       const sourceMinterFactory: SourceMinter__factory =
         (await hre.ethers.getContractFactory(
-          "SourceMinter"
+          "SourceMinter",
         )) as SourceMinter__factory;
       const sourceMinter: SourceMinter = await sourceMinterFactory.deploy(
         routerAddress,
-        linkAddress
+        linkAddress,
       );
       await sourceMinter.deployed();
 
       spinner.stop();
       console.log(
-        `✅ SourceMinter contract deployed at address ${sourceMinter.address} on the ${hre.network.name} blockchain`
+        `✅ SourceMinter contract deployed at address ${sourceMinter.address} on the ${hre.network.name} blockchain`,
       );
-    }
+    },
   );
 
 task(`cross-chain-mint`, `Mints the new NFT by sending the Cross-Chain Message`)
   .addParam(
     `sourceBlockchain`,
-    `The name of the source blockchain (for example ethereumSepolia)`
+    `The name of the source blockchain (for example ethereumSepolia)`,
   )
   .addParam(
     `sourceMinter`,
-    `The address of the SourceMinter.sol smart contract on the source blockchain`
+    `The address of the SourceMinter.sol smart contract on the source blockchain`,
   )
   .addParam(
     `destinationBlockchain`,
-    `The name of the destination blockchain (for example polygonMumbai)`
+    `The name of the destination blockchain (for example polygonMumbai)`,
   )
   .addParam(
     `destinationMinter`,
-    `The address of the DestinationMinter.sol smart contract on the destination blockchain`
+    `The address of the DestinationMinter.sol smart contract on the destination blockchain`,
   )
   .addParam(`payFeesIn`, `Choose between 'Native' and 'LINK'`)
   .setAction(async (taskArguments: TaskArguments) => {
@@ -177,16 +177,16 @@ task(`cross-chain-mint`, `Mints the new NFT by sending the Cross-Chain Message`)
 
     const sourceMinterContract: SourceMinter = SourceMinter__factory.connect(
       sourceMinter,
-      signer
+      signer,
     );
 
     const destinationChainSelector = getRouterConfig(
-      destinationBlockchain
+      destinationBlockchain,
     ).chainSelector;
     const fees = getPayFeesIn(payFeesIn);
 
     console.log(
-      `ℹ️  Attempting to call the mint function of the SourceMinter.sol smart contract on the ${sourceBlockchain} from ${signer.address} account`
+      `ℹ️  Attempting to call the mint function of the SourceMinter.sol smart contract on the ${sourceBlockchain} from ${signer.address} account`,
     );
     spinner.start();
 
@@ -194,7 +194,7 @@ task(`cross-chain-mint`, `Mints the new NFT by sending the Cross-Chain Message`)
       destinationChainSelector,
       destinationMinter,
       fees,
-      "https://ipfs.io/ipfs/QmYuKY45Aq87LeL1R5dhb1hqHLp6ZFbJaCP8jxqKM1MX6y/babe_ruth_1.json"
+      "https://ipfs.io/ipfs/QmYuKY45Aq87LeL1R5dhb1hqHLp6ZFbJaCP8jxqKM1MX6y/babe_ruth_1.json",
     );
 
     const receipt = await tx.wait();
@@ -209,12 +209,12 @@ task(`cross-chain-mint`, `Mints the new NFT by sending the Cross-Chain Message`)
 
 task(
   "cross-chain-mint-balance-of",
-  "Gets the balance of MyNFTs for provided address"
+  "Gets the balance of MyNFTs for provided address",
 )
   .addParam(`myNft`, `The address of the MyNFT smart contract`)
   .addParam(
     `blockchain`,
-    `The blockchain where the MyNFT smart contract was deployed`
+    `The blockchain where the MyNFT smart contract was deployed`,
   )
   .addParam(`owner`, `The address to check the balance of MyNFTs`)
   .setAction(async (taskArguments: TaskArguments) => {
@@ -226,7 +226,7 @@ task(
     const myNft: MyNFT = MyNFT__factory.connect(taskArguments.myNft, provider);
 
     console.log(
-      `ℹ️  Attempting to check the balance of MyNFTs (${taskArguments.myNft}) for the ${taskArguments.owner} account`
+      `ℹ️  Attempting to check the balance of MyNFTs (${taskArguments.myNft}) for the ${taskArguments.owner} account`,
     );
     spinner.start();
 
@@ -236,6 +236,6 @@ task(
     console.log(
       `ℹ️  The balance of MyNFTs of the ${
         taskArguments.owner
-      } account is ${balanceOf.toNumber()}`
+      } account is ${balanceOf.toNumber()}`,
     );
   });

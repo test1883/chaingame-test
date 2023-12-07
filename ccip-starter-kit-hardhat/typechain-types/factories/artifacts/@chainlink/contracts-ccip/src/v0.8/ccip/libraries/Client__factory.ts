@@ -33,7 +33,7 @@ type ClientConstructorParams =
   | ConstructorParameters<typeof ContractFactory>;
 
 const isSuperArgs = (
-  xs: ClientConstructorParams
+  xs: ClientConstructorParams,
 ): xs is ConstructorParameters<typeof ContractFactory> => xs.length > 1;
 
 export class Client__factory extends ContractFactory {
@@ -46,12 +46,12 @@ export class Client__factory extends ContractFactory {
   }
 
   override deploy(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<Client> {
     return super.deploy(overrides || {}) as Promise<Client>;
   }
   override getDeployTransaction(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): TransactionRequest {
     return super.getDeployTransaction(overrides || {});
   }

@@ -8,6 +8,9 @@ export async function setToken(tokenData: Token, env: Env) {
   const body = stringifyTokenForDb(tokenData)
   console.log(JSON.stringify(body))
   await db.insertInto('tokens').values(body).execute()
-  const max = await db.selectFrom('tokens').select(eb => eb.fn.max('t_index').as('id')).executeTakeFirst()
+  const max = await db
+    .selectFrom('tokens')
+    .select((eb) => eb.fn.max('t_index').as('id'))
+    .executeTakeFirst()
   return max?.id
 }

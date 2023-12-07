@@ -5,9 +5,9 @@ import { parseTokenFromDB } from './utils'
 
 export async function getToken(
   request: {
-    owner: string,
-    receiver: string,
-    t_index: number,
+    owner: string
+    receiver: string
+    t_index: number
   },
   env: Env
 ): Promise<Token | null> {

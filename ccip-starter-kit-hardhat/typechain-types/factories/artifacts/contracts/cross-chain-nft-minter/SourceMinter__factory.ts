@@ -204,7 +204,7 @@ type SourceMinterConstructorParams =
   | ConstructorParameters<typeof ContractFactory>;
 
 const isSuperArgs = (
-  xs: SourceMinterConstructorParams
+  xs: SourceMinterConstructorParams,
 ): xs is ConstructorParameters<typeof ContractFactory> => xs.length > 1;
 
 export class SourceMinter__factory extends ContractFactory {
@@ -219,14 +219,14 @@ export class SourceMinter__factory extends ContractFactory {
   override deploy(
     router: PromiseOrValue<string>,
     link: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<SourceMinter> {
     return super.deploy(router, link, overrides || {}) as Promise<SourceMinter>;
   }
   override getDeployTransaction(
     router: PromiseOrValue<string>,
     link: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): TransactionRequest {
     return super.getDeployTransaction(router, link, overrides || {});
   }
@@ -244,7 +244,7 @@ export class SourceMinter__factory extends ContractFactory {
   }
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider
+    signerOrProvider: Signer | Provider,
   ): SourceMinter {
     return new Contract(address, _abi, signerOrProvider) as SourceMinter;
   }

@@ -143,7 +143,7 @@ type WithdrawConstructorParams =
   | ConstructorParameters<typeof ContractFactory>;
 
 const isSuperArgs = (
-  xs: WithdrawConstructorParams
+  xs: WithdrawConstructorParams,
 ): xs is ConstructorParameters<typeof ContractFactory> => xs.length > 1;
 
 export class Withdraw__factory extends ContractFactory {
@@ -156,12 +156,12 @@ export class Withdraw__factory extends ContractFactory {
   }
 
   override deploy(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<Withdraw> {
     return super.deploy(overrides || {}) as Promise<Withdraw>;
   }
   override getDeployTransaction(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): TransactionRequest {
     return super.getDeployTransaction(overrides || {});
   }
@@ -179,7 +179,7 @@ export class Withdraw__factory extends ContractFactory {
   }
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider
+    signerOrProvider: Signer | Provider,
   ): Withdraw {
     return new Contract(address, _abi, signerOrProvider) as Withdraw;
   }

@@ -52,7 +52,7 @@ export class OwnableInterface__factory {
   }
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider
+    signerOrProvider: Signer | Provider,
   ): OwnableInterface {
     return new Contract(address, _abi, signerOrProvider) as OwnableInterface;
   }

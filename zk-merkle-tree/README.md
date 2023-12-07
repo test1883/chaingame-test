@@ -2,7 +2,7 @@
 
 A JavaScript library for anonymous voting on Ethereum blockchain using zero-knowledge proof.
 
-The library is based on the source code of [Tornado Cash](https://github.com/tornadocash/tornado-core). The most essential component of TC is a Merkle tree where users can deposit ethers with a random `commitment`, that can be withdrawn with a `nullifier`. The nullifier is assigned to the commitment, but nobody knows which commitment is assigned to which nullifier, because the link between them is the zero-knowledge. This method can be also used for anonymous voting, where the voter sends a commitment in the registration phase, and a nullifier when she votes. This method ensures that one voter can vote only once. 
+The library is based on the source code of [Tornado Cash](https://github.com/tornadocash/tornado-core). The most essential component of TC is a Merkle tree where users can deposit ethers with a random `commitment`, that can be withdrawn with a `nullifier`. The nullifier is assigned to the commitment, but nobody knows which commitment is assigned to which nullifier, because the link between them is the zero-knowledge. This method can be also used for anonymous voting, where the voter sends a commitment in the registration phase, and a nullifier when she votes. This method ensures that one voter can vote only once.
 
 For more info, please read [my article on Medium about the library](https://thebojda.medium.com/an-introduction-of-zk-merkle-tree-a-javascript-library-for-anonymous-voting-on-ethereum-using-79caa3415d1e).
 
@@ -82,27 +82,28 @@ contract ZKTreeVote is ZKTree {
 ```
 
 The constructor has 4 parameters:
+
 - `_levels` is the levels of the Merkle tree. **It has to be 20 if you use the default Verifier.** If you want to use different number of levels, you have to implement your own Verifier circuit.
-- `_hasher` is the address of the MiMC sponge smart contract. (Check the `test` folder for the MiMC sponge generator code.) 
+- `_hasher` is the address of the MiMC sponge smart contract. (Check the `test` folder for the MiMC sponge generator code.)
 - `_verifier` is the address of the Verifier contract. It is generated from the Verifier (`circuits/Verifier.circom`) circuit by the prepare script (`scripts/preapre.sh`).
 - `_numOptions` is the number of options.
 
-
 The `registerCommitment` method implements the `_commit` method. It has 2 parameters:
+
 - `_uniqueHash` is a unique hash of the voter (ex.: the hash of the ID card). It ensures that one voter is registered only once.
 - `_commitment` is the commitment of the user.
 
 The `vote` method implements the `_nullify` method. It has 6 parameters:
+
 - `_option` is the option what the voter chooses.
 - `_nullifier` is the nullifier for the commitment.
 - `_root` is the Merkle root for the proof.
 - `_proof_a`, `_proof_b` and `_proof_c` are the zero-knowledge proof.
 
-The commitment and the nullifier is generated on the client side by the `generateCommitment` method. (Please check the [VoterRegistration](https://github.com/TheBojda/zktree-vote/blob/main/src/components/VoterRegistration.vue) component in the `zktree-vote` project.) 
+The commitment and the nullifier is generated on the client side by the `generateCommitment` method. (Please check the [VoterRegistration](https://github.com/TheBojda/zktree-vote/blob/main/src/components/VoterRegistration.vue) component in the `zktree-vote` project.)
 
 To generate the zero-knowledge proof, use `calculateMerkleRootAndZKProof`. (Please check the [Vote](https://github.com/TheBojda/zktree-vote/blob/main/src/components/Vote.vue) component in the `zktree-vote` project.)
 
 For more info, please check the `test` folder in the repository and the [zktree-vote](https://github.com/TheBojda/zktree-vote) project.
 
 WARNING: This library is not audited, so use it at your own risk.
-

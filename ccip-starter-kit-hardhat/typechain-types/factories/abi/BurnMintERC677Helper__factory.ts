@@ -767,12 +767,12 @@ export class BurnMintERC677Helper__factory {
   }
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider
+    signerOrProvider: Signer | Provider,
   ): BurnMintERC677Helper {
     return new Contract(
       address,
       _abi,
-      signerOrProvider
+      signerOrProvider,
     ) as BurnMintERC677Helper;
   }
 }

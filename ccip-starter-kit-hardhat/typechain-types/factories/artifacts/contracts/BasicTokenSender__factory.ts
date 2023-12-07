@@ -235,7 +235,7 @@ type BasicTokenSenderConstructorParams =
   | ConstructorParameters<typeof ContractFactory>;
 
 const isSuperArgs = (
-  xs: BasicTokenSenderConstructorParams
+  xs: BasicTokenSenderConstructorParams,
 ): xs is ConstructorParameters<typeof ContractFactory> => xs.length > 1;
 
 export class BasicTokenSender__factory extends ContractFactory {
@@ -250,18 +250,18 @@ export class BasicTokenSender__factory extends ContractFactory {
   override deploy(
     router: PromiseOrValue<string>,
     link: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<BasicTokenSender> {
     return super.deploy(
       router,
       link,
-      overrides || {}
+      overrides || {},
     ) as Promise<BasicTokenSender>;
   }
   override getDeployTransaction(
     router: PromiseOrValue<string>,
     link: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): TransactionRequest {
     return super.getDeployTransaction(router, link, overrides || {});
   }
@@ -279,7 +279,7 @@ export class BasicTokenSender__factory extends ContractFactory {
   }
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider
+    signerOrProvider: Signer | Provider,
   ): BasicTokenSender {
     return new Contract(address, _abi, signerOrProvider) as BasicTokenSender;
   }

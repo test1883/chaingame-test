@@ -26,17 +26,17 @@ export interface ClientInterface extends utils.Interface {
   };
 
   getFunction(
-    nameOrSignatureOrTopic: "EVM_EXTRA_ARGS_V1_TAG"
+    nameOrSignatureOrTopic: "EVM_EXTRA_ARGS_V1_TAG",
   ): FunctionFragment;
 
   encodeFunctionData(
     functionFragment: "EVM_EXTRA_ARGS_V1_TAG",
-    values?: undefined
+    values?: undefined,
   ): string;
 
   decodeFunctionResult(
     functionFragment: "EVM_EXTRA_ARGS_V1_TAG",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
 
   events: {};
@@ -52,15 +52,15 @@ export interface Client extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TEvent>>;
 
   listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>
+    eventFilter?: TypedEventFilter<TEvent>,
   ): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
   removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
+    eventFilter: TypedEventFilter<TEvent>,
   ): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
@@ -86,7 +86,7 @@ export interface Client extends BaseContract {
 
   populateTransaction: {
     EVM_EXTRA_ARGS_V1_TAG(
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
   };
 }

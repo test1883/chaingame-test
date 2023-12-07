@@ -114,7 +114,7 @@ export class CCIPReceiver__factory {
   }
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider
+    signerOrProvider: Signer | Provider,
   ): CCIPReceiver {
     return new Contract(address, _abi, signerOrProvider) as CCIPReceiver;
   }

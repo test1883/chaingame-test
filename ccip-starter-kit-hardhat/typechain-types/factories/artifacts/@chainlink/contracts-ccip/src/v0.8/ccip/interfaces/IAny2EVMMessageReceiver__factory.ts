@@ -71,12 +71,12 @@ export class IAny2EVMMessageReceiver__factory {
   }
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider
+    signerOrProvider: Signer | Provider,
   ): IAny2EVMMessageReceiver {
     return new Contract(
       address,
       _abi,
-      signerOrProvider
+      signerOrProvider,
     ) as IAny2EVMMessageReceiver;
   }
 }

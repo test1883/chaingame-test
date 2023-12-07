@@ -26,7 +26,7 @@ export function makeServer(privateKey: string, env: Env) {
           duration,
         ] = args
         console.log(args)
-        
+
         const safeParse = ZodToken.parse({
           receiver: receiver,
           token_type: tokenType,
@@ -56,7 +56,10 @@ export function makeServer(privateKey: string, env: Env) {
       type: 'buyToken',
       func: async (args: Result) => {
         const [owner, receiver, index] = args
-        const {token, id} = await buyToken({ owner, receiver, t_index: index }, env)
+        const { token, id } = await buyToken(
+          { owner, receiver, t_index: index },
+          env
+        )
         // Hash and sign the response
         let messageHash = ethers.utils.solidityKeccak256(
           ['address', 'uint256'],
@@ -68,11 +71,11 @@ export function makeServer(privateKey: string, env: Env) {
           token?.destination_chain_selector,
           token?.links,
           token?.on_loop,
-          token?.duration! + (Date.now()/1000),
+          token?.duration! + Date.now() / 1000,
           id,
           sig,
           token?.token_type,
-          token?.interval
+          token?.interval,
         ]
       },
     },

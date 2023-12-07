@@ -21,5 +21,5 @@ export async function buyToken(
   }
 
   const id = await setTokenInfo(body, env)
-  return {token, id}
+  return { token, id }
 }

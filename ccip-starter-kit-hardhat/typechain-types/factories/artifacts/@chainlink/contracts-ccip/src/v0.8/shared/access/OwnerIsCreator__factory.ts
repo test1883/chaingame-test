@@ -96,7 +96,7 @@ type OwnerIsCreatorConstructorParams =
   | ConstructorParameters<typeof ContractFactory>;
 
 const isSuperArgs = (
-  xs: OwnerIsCreatorConstructorParams
+  xs: OwnerIsCreatorConstructorParams,
 ): xs is ConstructorParameters<typeof ContractFactory> => xs.length > 1;
 
 export class OwnerIsCreator__factory extends ContractFactory {
@@ -109,12 +109,12 @@ export class OwnerIsCreator__factory extends ContractFactory {
   }
 
   override deploy(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<OwnerIsCreator> {
     return super.deploy(overrides || {}) as Promise<OwnerIsCreator>;
   }
   override getDeployTransaction(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): TransactionRequest {
     return super.getDeployTransaction(overrides || {});
   }
@@ -132,7 +132,7 @@ export class OwnerIsCreator__factory extends ContractFactory {
   }
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider
+    signerOrProvider: Signer | Provider,
   ): OwnerIsCreator {
     return new Contract(address, _abi, signerOrProvider) as OwnerIsCreator;
   }

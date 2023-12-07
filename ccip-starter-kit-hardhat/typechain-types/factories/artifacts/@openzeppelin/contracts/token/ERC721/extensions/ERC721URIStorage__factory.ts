@@ -349,7 +349,7 @@ export class ERC721URIStorage__factory {
   }
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider
+    signerOrProvider: Signer | Provider,
   ): ERC721URIStorage {
     return new Contract(address, _abi, signerOrProvider) as ERC721URIStorage;
   }

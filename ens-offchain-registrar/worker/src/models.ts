@@ -58,7 +58,7 @@ export type TokenInfoWithSignature = z.infer<typeof ZodTokenInfoWithSignature>
 export interface ContractInKysely {
   owner: string
   contract: string
-  description: string,
+  description: string
   avatar: string
 }
 

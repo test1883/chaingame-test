@@ -51,7 +51,7 @@ export declare namespace Client {
     BigNumber,
     string,
     string,
-    Client.EVMTokenAmountStructOutput[]
+    Client.EVMTokenAmountStructOutput[],
   ] & {
     messageId: string;
     sourceChainSelector: BigNumber;
@@ -69,27 +69,27 @@ export interface DestinationMinterInterface extends utils.Interface {
   };
 
   getFunction(
-    nameOrSignatureOrTopic: "ccipReceive" | "getRouter" | "supportsInterface"
+    nameOrSignatureOrTopic: "ccipReceive" | "getRouter" | "supportsInterface",
   ): FunctionFragment;
 
   encodeFunctionData(
     functionFragment: "ccipReceive",
-    values: [Client.Any2EVMMessageStruct]
+    values: [Client.Any2EVMMessageStruct],
   ): string;
   encodeFunctionData(functionFragment: "getRouter", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "supportsInterface",
-    values: [PromiseOrValue<BytesLike>]
+    values: [PromiseOrValue<BytesLike>],
   ): string;
 
   decodeFunctionResult(
     functionFragment: "ccipReceive",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(functionFragment: "getRouter", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "supportsInterface",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
 
   events: {
@@ -118,15 +118,15 @@ export interface DestinationMinter extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TEvent>>;
 
   listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>
+    eventFilter?: TypedEventFilter<TEvent>,
   ): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
   removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
+    eventFilter: TypedEventFilter<TEvent>,
   ): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
@@ -137,40 +137,40 @@ export interface DestinationMinter extends BaseContract {
   functions: {
     ccipReceive(
       message: Client.Any2EVMMessageStruct,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
     getRouter(overrides?: CallOverrides): Promise<[string]>;
 
     supportsInterface(
       interfaceId: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[boolean]>;
   };
 
   ccipReceive(
     message: Client.Any2EVMMessageStruct,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   getRouter(overrides?: CallOverrides): Promise<string>;
 
   supportsInterface(
     interfaceId: PromiseOrValue<BytesLike>,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<boolean>;
 
   callStatic: {
     ccipReceive(
       message: Client.Any2EVMMessageStruct,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     getRouter(overrides?: CallOverrides): Promise<string>;
 
     supportsInterface(
       interfaceId: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<boolean>;
   };
 
@@ -182,28 +182,28 @@ export interface DestinationMinter extends BaseContract {
   estimateGas: {
     ccipReceive(
       message: Client.Any2EVMMessageStruct,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
     getRouter(overrides?: CallOverrides): Promise<BigNumber>;
 
     supportsInterface(
       interfaceId: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
     ccipReceive(
       message: Client.Any2EVMMessageStruct,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
     getRouter(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     supportsInterface(
       interfaceId: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
   };
 }

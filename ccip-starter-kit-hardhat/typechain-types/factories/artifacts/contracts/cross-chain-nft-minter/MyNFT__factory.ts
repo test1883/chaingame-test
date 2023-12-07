@@ -425,7 +425,7 @@ type MyNFTConstructorParams =
   | ConstructorParameters<typeof ContractFactory>;
 
 const isSuperArgs = (
-  xs: MyNFTConstructorParams
+  xs: MyNFTConstructorParams,
 ): xs is ConstructorParameters<typeof ContractFactory> => xs.length > 1;
 
 export class MyNFT__factory extends ContractFactory {
@@ -438,12 +438,12 @@ export class MyNFT__factory extends ContractFactory {
   }
 
   override deploy(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<MyNFT> {
     return super.deploy(overrides || {}) as Promise<MyNFT>;
   }
   override getDeployTransaction(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): TransactionRequest {
     return super.getDeployTransaction(overrides || {});
   }

@@ -204,7 +204,7 @@ export class IRouterClient__factory {
   }
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider
+    signerOrProvider: Signer | Provider,
   ): IRouterClient {
     return new Contract(address, _abi, signerOrProvider) as IRouterClient;
   }

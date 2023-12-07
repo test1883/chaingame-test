@@ -625,7 +625,7 @@ type ProgrammableTokenTransfersConstructorParams =
   | ConstructorParameters<typeof ContractFactory>;
 
 const isSuperArgs = (
-  xs: ProgrammableTokenTransfersConstructorParams
+  xs: ProgrammableTokenTransfersConstructorParams,
 ): xs is ConstructorParameters<typeof ContractFactory> => xs.length > 1;
 
 export class ProgrammableTokenTransfers__factory extends ContractFactory {
@@ -639,16 +639,16 @@ export class ProgrammableTokenTransfers__factory extends ContractFactory {
 
   override deploy(
     router: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ProgrammableTokenTransfers> {
     return super.deploy(
       router,
-      overrides || {}
+      overrides || {},
     ) as Promise<ProgrammableTokenTransfers>;
   }
   override getDeployTransaction(
     router: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): TransactionRequest {
     return super.getDeployTransaction(router, overrides || {});
   }
@@ -666,12 +666,12 @@ export class ProgrammableTokenTransfers__factory extends ContractFactory {
   }
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider
+    signerOrProvider: Signer | Provider,
   ): ProgrammableTokenTransfers {
     return new Contract(
       address,
       _abi,
-      signerOrProvider
+      signerOrProvider,
     ) as ProgrammableTokenTransfers;
   }
 }

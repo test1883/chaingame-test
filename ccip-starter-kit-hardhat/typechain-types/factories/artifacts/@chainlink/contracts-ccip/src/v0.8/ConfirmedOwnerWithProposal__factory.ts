@@ -107,7 +107,7 @@ type ConfirmedOwnerWithProposalConstructorParams =
   | ConstructorParameters<typeof ContractFactory>;
 
 const isSuperArgs = (
-  xs: ConfirmedOwnerWithProposalConstructorParams
+  xs: ConfirmedOwnerWithProposalConstructorParams,
 ): xs is ConstructorParameters<typeof ContractFactory> => xs.length > 1;
 
 export class ConfirmedOwnerWithProposal__factory extends ContractFactory {
@@ -122,18 +122,18 @@ export class ConfirmedOwnerWithProposal__factory extends ContractFactory {
   override deploy(
     newOwner: PromiseOrValue<string>,
     pendingOwner: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ConfirmedOwnerWithProposal> {
     return super.deploy(
       newOwner,
       pendingOwner,
-      overrides || {}
+      overrides || {},
     ) as Promise<ConfirmedOwnerWithProposal>;
   }
   override getDeployTransaction(
     newOwner: PromiseOrValue<string>,
     pendingOwner: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): TransactionRequest {
     return super.getDeployTransaction(newOwner, pendingOwner, overrides || {});
   }
@@ -151,12 +151,12 @@ export class ConfirmedOwnerWithProposal__factory extends ContractFactory {
   }
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider
+    signerOrProvider: Signer | Provider,
   ): ConfirmedOwnerWithProposal {
     return new Contract(
       address,
       _abi,
-      signerOrProvider
+      signerOrProvider,
     ) as ConfirmedOwnerWithProposal;
   }
 }

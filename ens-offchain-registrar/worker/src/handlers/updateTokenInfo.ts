@@ -14,15 +14,25 @@ export async function updateTokenInfo(
     'updateToken',
     request.bytesArgs
   )
-    //address owner,address receiver, uint256 currTokenId, string memory link, uint256 destChain
+  //address owner,address receiver, uint256 currTokenId, string memory link, uint256 destChain
   await db
     .updateTable('tokenInfo')
     .set((eb) => ({
       curr_link: eb('curr_link', '+', 1),
       last_updated: Date.now() / 1000,
     }))
-    .where("token_index", "=", currTokenIndex)
+    .where('token_index', '=', currTokenIndex)
     .executeTakeFirst()
-  const tokenInfo = await db.selectFrom("tokenInfo").selectAll().where('token_index', "=", currTokenIndex)..where('receiver', '=', currContract).executeTakeFirst()
-  const token = await db.selectFrom('tokens').selectAll().where('t_index', '=', tokenInfo?.t_index).where('receiver', '=', currContract).executeTakeFirst()
+  const tokenInfo = await db
+    .selectFrom('tokenInfo')
+    .selectAll()
+    .where('token_index', '=', currTokenIndex)
+    .where('receiver', '=', currContract)
+    .executeTakeFirst()
+  const token = await db
+    .selectFrom('tokens')
+    .selectAll()
+    .where('t_index', '=', tokenInfo?.t_index)
+    .where('receiver', '=', currContract)
+    .executeTakeFirst()
 }
