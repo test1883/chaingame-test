@@ -4,7 +4,7 @@ import { Result } from 'ethers/lib/utils'
 
 import { abi as Gateway_abi } from '../abi/Gateway.json'
 import { Env } from '../env'
-import { buyToken } from '../handlers/buyToken'
+import { buyToken } from '../handlers/functions/buyToken'
 import { setToken } from '../handlers/functions/setToken'
 import { ZodToken } from '../models'
 

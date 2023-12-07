@@ -35,8 +35,9 @@ export const ZodTokenWithSignature = ZodToken.extend({
 export const ZodTokenInfo = z.object({
   t_index: z.number(),
   owner: z.string(),
+  receiver: z.string(),
   last_updated: z.number(),
-  current_link: z.number(),
+  curr_link: z.number(),
   active_till: z.number(),
 })
 
@@ -77,7 +78,8 @@ export interface TokenInfoInKysely {
   t_index: number
   token_index: number | undefined
   owner: string
+  receiver: string
   last_updated: number
-  current_link: number
+  curr_link: number
   active_till: number
 }

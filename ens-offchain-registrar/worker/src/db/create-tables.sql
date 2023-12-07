@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS token_info (
 	t_index INT NOT NULL,
 	token_index INT AUTO_INCREMENT PRIMARY KEY,
     owner VARCHAR(30) NOT NULL,
+    receiver VARCHAR(30) NOT NULL,
     last_updated INT NOT NULL,
     curr_link INT NOT NULL,
     active_till INT NOT NULL

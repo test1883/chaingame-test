@@ -1,6 +1,6 @@
-import { Env } from '../env'
-import { getToken } from './functions/getToken'
-import { setTokenInfo } from './functions/setTokenInfo'
+import { Env } from '../../env'
+import { getToken } from './getToken'
+import { setTokenInfo } from './setTokenInfo'
 
 export async function buyToken(
   request: {
@@ -16,7 +16,7 @@ export async function buyToken(
     receiver: request.receiver,
     t_index: request.t_index,
     last_updated: Date.now() / 1000,
-    current_link: 0,
+    curr_link: 0,
     active_till: Date.now() / 1000 + token!.duration,
   }
 
