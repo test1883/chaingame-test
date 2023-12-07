@@ -12,10 +12,47 @@
 					"internalType": "string[]",
 					"name": "_urls",
 					"type": "string[]"
+				},
+				{
+					"internalType": "address",
+					"name": "_c_router",
+					"type": "address"
+				},
+				{
+					"internalType": "address",
+					"name": "_c_link",
+					"type": "address"
 				}
 			],
-			"stateMutability": "nonpayable",
+			"stateMutability": "payable",
 			"type": "constructor"
+		},
+		{
+			"inputs": [],
+			"name": "ECDSAInvalidSignature",
+			"type": "error"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "length",
+					"type": "uint256"
+				}
+			],
+			"name": "ECDSAInvalidSignatureLength",
+			"type": "error"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "bytes32",
+					"name": "s",
+					"type": "bytes32"
+				}
+			],
+			"name": "ECDSAInvalidSignatureS",
+			"type": "error"
 		},
 		{
 			"inputs": [
@@ -47,6 +84,66 @@
 			],
 			"name": "OffchainLookup",
 			"type": "error"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "receiver",
+					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "tokenIndex",
+					"type": "uint256"
+				}
+			],
+			"name": "buy",
+			"outputs": [],
+			"stateMutability": "payable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "bytes",
+					"name": "result",
+					"type": "bytes"
+				},
+				{
+					"internalType": "bytes",
+					"name": "extraData",
+					"type": "bytes"
+				}
+			],
+			"name": "buyWithSignature",
+			"outputs": [],
+			"stateMutability": "payable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "",
+					"type": "address"
+				}
+			],
+			"name": "contractDetails",
+			"outputs": [
+				{
+					"internalType": "address",
+					"name": "owner",
+					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "balance",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
 		},
 		{
 			"inputs": [
@@ -98,14 +195,14 @@
 			],
 			"name": "createToken",
 			"outputs": [],
-			"stateMutability": "view",
+			"stateMutability": "payable",
 			"type": "function"
 		},
 		{
 			"inputs": [
 				{
 					"internalType": "bytes",
-					"name": "",
+					"name": "result",
 					"type": "bytes"
 				},
 				{
@@ -116,7 +213,7 @@
 			],
 			"name": "createTokenWithSignature",
 			"outputs": [],
-			"stateMutability": "nonpayable",
+			"stateMutability": "payable",
 			"type": "function"
 		},
 		{
@@ -151,7 +248,7 @@
 					"type": "uint256"
 				}
 			],
-			"name": "tokenPrice",
+			"name": "tokenPrices",
 			"outputs": [
 				{
 					"internalType": "uint256",

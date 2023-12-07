@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS contracts;
 DROP TABLE IF EXISTS tokens;
-DROP TABLE IF EXISTS tokenInfo;
+DROP TABLE IF EXISTS token_info;
 
 CREATE TABLE IF NOT EXISTS contracts (
 	owner VARCHAR(30) NOT NULL,
@@ -9,21 +9,22 @@ CREATE TABLE IF NOT EXISTS contracts (
     avatar TEXT NOT NULL
 );
 CREATE TABLE IF NOT EXISTS tokens (
-	t_index INT AUTO_INCREMENT  PRIMARY KEY,
+	t_index INT AUTO_INCREMENT NOT NULL,
 	receiver VARCHAR(30) NOT NULL,
     token_type INT NOT NULL,
     interval INT NOT NULL,
     links TEXT NOT NULL,
     on_loop BOOLEAN NOT NULL,
-    destination_chain_selector BIGINT NOT NULL,
+    destination_chain_selector INT NOT NULL,
     price INT NOT NULL,
-    duration INT NOT NULL
+    duration INT NOT NULL,
+    PRIMARY KEY(t_index, receiver)
 );
-CREATE TABLE IF NOT EXISTS tokenInfo (
+CREATE TABLE IF NOT EXISTS token_info (
 	t_index INT NOT NULL,
-	token_index INT AUTO_INCREMENT  PRIMARY KEY,
+	token_index INT AUTO_INCREMENT PRIMARY KEY,
     owner VARCHAR(30) NOT NULL,
     last_updated INT NOT NULL,
-    curr_link TINYINT NOT NULL,
+    curr_link INT NOT NULL,
     active_till INT NOT NULL
 );

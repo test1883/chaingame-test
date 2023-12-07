@@ -3,6 +3,5 @@ import { Env } from '../env'
 
 export const getCcipRead = async (request: Request, env: Env) => {
   const ccipRouter = makeApp(env.PRIVATE_KEY, '/ccip/', env)
-  console.log('here')
   return ccipRouter.handle(request)
 }

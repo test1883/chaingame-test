@@ -32,7 +32,9 @@ import {
   Spacer,
 } from '@/styles'
 import { WorkerRequest } from '@/types'
+import durin_call from '@/utils/ccipRead'
 import { useEthersSigner } from '@/utils/ethers'
+import { createToken } from '@/utils/functions'
 
 import { abi as Chaingame_abi } from '../abi/Chaingame.json'
 import styles from './styles.module.css'
@@ -90,23 +92,21 @@ export default function App(props: any) {
   }
 
   const signer = useEthersSigner()
+  const iface = new ethers.utils.Interface(Chaingame_abi)
   const test = async () => {
-    const contract = new ethers.Contract(
-      '0xaf256dE2d2766fd06BA18df5FDcd77f98e084C6f',
-      Chaingame_abi,
-      signer
-    )
-    await contract.createToken(
-      1568,
-      2,
-      '0x0a8f4c59caafa0c9648abdafdb225f3b4c7c3ef2',
-      2,
-      2000,
-      true,
-      ['hehe'],
-      2000,
-      20000
-    )
+    createToken(Chaingame_abi, signer!, {
+      tIndex: 1,
+      destinationChainSelector: BigInt(12532609583862916517),
+      receiver: '0x274752bc001e54ef6b8aeae09e7944f33cc1858e',
+      tokenType: 0,
+      interval: 0,
+      price: 10000000000,
+      links: [
+        'https://ipfs.io/ipfs/QmYaTsyxTDnrG4toc8721w62rL4ZBKXQTGj9c9Rpdrntou/seed.json',
+      ],
+      onLoop: 0,
+      duration: 0,
+    })
   }
 
   const requestBody: WorkerRequest = {

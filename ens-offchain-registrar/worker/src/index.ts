@@ -8,7 +8,6 @@ import {
   getTokens,
   setContract,
 } from './handlers'
-import { createToken } from './handlers/createToken'
 
 const { preflight, corsify } = createCors()
 const router = Router()
@@ -20,7 +19,6 @@ router
   .get('/contracts', (request, env) => getContracts(env))
   .post('/set', (request, env) => setContract(request, env))
   .post('/get-tokens', (request, env) => getTokens(request, env))
-  .post('/set-token', (request, env) => createToken(request, env))
   .all('*', () => new Response('Not found', { status: 404 }))
 
 // Handle requests to the Worker

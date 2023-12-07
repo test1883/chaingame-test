@@ -15,7 +15,6 @@ export const ZodContractWithSignature = ZodContract.extend({
 })
 
 export const ZodToken = z.object({
-  t_index: z.number(),
   receiver: z.string(),
   token_type: z.number(),
   interval: z.number(),
@@ -35,11 +34,10 @@ export const ZodTokenWithSignature = ZodToken.extend({
 
 export const ZodTokenInfo = z.object({
   t_index: z.number(),
-  tokenIndex: z.number(),
   owner: z.string(),
-  lastUpdated: z.number(),
-  currentLink: z.number(),
-  activeTill: z.number(),
+  last_updated: z.number(),
+  current_link: z.number(),
+  active_till: z.number(),
 })
 
 export const ZodTokenInfoWithSignature = ZodToken.extend({
@@ -59,11 +57,12 @@ export type TokenInfoWithSignature = z.infer<typeof ZodTokenInfoWithSignature>
 export interface ContractInKysely {
   owner: string
   contract: string
-  description: string
+  description: string,
+  avatar: string
 }
 
 export interface TokenInKysely {
-  t_index: number
+  t_index: number | undefined
   receiver: string
   token_type: number
   interval: number
@@ -76,9 +75,9 @@ export interface TokenInKysely {
 
 export interface TokenInfoInKysely {
   t_index: number
-  tokenIndex: number
+  token_index: number | undefined
   owner: string
-  lastUpdated: number
-  currentLink: number
-  activeTill: number
+  last_updated: number
+  current_link: number
+  active_till: number
 }

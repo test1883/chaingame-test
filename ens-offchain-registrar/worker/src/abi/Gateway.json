@@ -1,5 +1,6 @@
 {
-    "abi": [
+	
+	"abi": [
 		{
 			"inputs": [
 				{
@@ -20,6 +21,16 @@
 			],
 			"name": "buyToken",
 			"outputs": [
+				{
+					"internalType": "uint64",
+					"name": "destinationChainSelector",
+					"type": "uint64"
+				},
+				{
+					"internalType": "string",
+					"name": "link",
+					"type": "string"
+				},
 				{
 					"internalType": "bytes",
 					"name": "sig",
