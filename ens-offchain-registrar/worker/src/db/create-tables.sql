@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS contracts (
     avatar TEXT NOT NULL
 );
 CREATE TABLE IF NOT EXISTS tokens (
-	t_index INT AUTO_INCREMENT NOT NULL,
+	t_index INT AUTO_INCREMENT,
 	receiver VARCHAR(30) NOT NULL,
     token_type INT NOT NULL,
     interval INT NOT NULL,

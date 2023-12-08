@@ -10,6 +10,7 @@ import { ThemeProvider } from 'styled-components'
 import { WagmiConfig } from 'wagmi'
 
 import { Layout } from '@/components/Layout'
+import AuthProvider from '@/context/AuthContext'
 import { useIsMounted } from '@/hooks/useIsMounted'
 
 import { chains, wagmiConfig } from '../providers'
@@ -20,18 +21,20 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={darkTheme}>
       <ThorinGlobalStyles />
-      <WagmiConfig config={wagmiConfig}>
-        <RainbowKitProvider
-          chains={chains}
-          theme={darkThemeRk({
-            accentColor: '#1A43BF',
-          })}
-          modalSize="wide"
-          children={
-            <Layout>{isMounted && <Component {...pageProps} />}</Layout>
-          }
-        ></RainbowKitProvider>
-      </WagmiConfig>
+      <AuthProvider>
+        <WagmiConfig config={wagmiConfig}>
+          <RainbowKitProvider
+            chains={chains}
+            theme={darkThemeRk({
+              accentColor: '#1A43BF',
+            })}
+            modalSize="wide"
+            children={
+              <Layout>{isMounted && <Component {...pageProps} />}</Layout>
+            }
+          ></RainbowKitProvider>
+        </WagmiConfig>
+      </AuthProvider>
     </ThemeProvider>
   )
 }

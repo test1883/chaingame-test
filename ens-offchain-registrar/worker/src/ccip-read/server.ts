@@ -7,6 +7,7 @@ import { Env } from '../env'
 import { buyToken } from '../handlers/functions/buyToken'
 import { setToken } from '../handlers/functions/setToken'
 import { ZodToken } from '../models'
+import { updateTokenInfo } from '../handlers/functions/updateTokenInfo'
 
 export function makeServer(privateKey: string, env: Env) {
   let signer = new ethers.Wallet(privateKey)
@@ -60,6 +61,7 @@ export function makeServer(privateKey: string, env: Env) {
           { owner, receiver, t_index: index },
           env
         )
+        console.log(id)
         // Hash and sign the response
         let messageHash = ethers.utils.solidityKeccak256(
           ['address', 'uint256'],
@@ -77,6 +79,17 @@ export function makeServer(privateKey: string, env: Env) {
           token?.token_type,
           token?.interval,
         ]
+      },
+    },
+    {
+      type: 'updateToken',
+      func: async (args: Result) => {
+        const [sender, currContract, currTokenIndex] = args
+        const result = await updateTokenInfo(
+          { currContract, currTokenIndex },
+          env
+        )
+        return result
       },
     },
   ])

@@ -3,7 +3,6 @@ import { ethers } from 'ethers'
 import durin_call from './ccipRead'
 
 interface Token {
-  tIndex: number
   destinationChainSelector: number
   receiver: string
   tokenType: number
@@ -21,18 +20,10 @@ export const createToken = async (
   token: Token
 ) => {
   const iface = new ethers.utils.Interface(Chaingame_abi)
-  const price =
-    token.tokenType === 0
-      ? '0.0001'
-      : token.tokenType === 1
-        ? (0.0002 * token.links.length).toString()
-        : token.tokenType === 2
-          ? (0.0002 * (token.duration / token.interval)).toString()
-          : '0'
+  const price = useContract
   await durin_call(signer!, {
     to: '0x41b07186f7311f71a3165ff21614059cf2b03446',
     data: iface.encodeFunctionData('createToken', [
-      token.tIndex,
       token.destinationChainSelector,
       token.receiver,
       token.tokenType,

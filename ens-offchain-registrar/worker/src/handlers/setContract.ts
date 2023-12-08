@@ -20,18 +20,6 @@ export async function setContract(
 
   const { owner, contract } = safeParse.data
 
-  // Validate signature
-  // try {
-  //   const signer = verifyMessage(signature.message, signature.hash)
-  //   if (signer.toLowerCase() !== owner.toLowerCase()) {
-  //     throw new Error('Invalid signer')
-  //   }
-  // } catch (err) {
-  //   console.error(err)
-  //   const response = { success: false, error: err }
-  //   return Response.json(response, { status: 401 })
-  // }
-
   // Check if the Contract is already taken
   const existingContract = await get(contract, env)
 

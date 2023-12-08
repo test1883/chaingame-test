@@ -13,30 +13,20 @@ import { useState } from 'react'
 import { useAccount, useSignMessage } from 'wagmi'
 
 import { NFT } from '@/components/NFT'
-import { useDebounce } from '@/hooks/useDebounce'
-import { useFetch } from '@/hooks/useFetch'
 import {
   Content,
   Contract,
-  Form,
-  Header,
-  HeaderLogo,
-  HeaderNav,
-  Helper,
   Input,
-  Link,
   NFTView,
   Page,
   Right,
   Sidebar,
-  Spacer,
 } from '@/styles'
-import { WorkerRequest } from '@/types'
-import durin_call from '@/utils/ccipRead'
 import { useEthersSigner } from '@/utils/ethers'
 import { createToken } from '@/utils/functions'
+import Header from '@/components/Header'
 
-import { abi as Chaingame_abi } from '../abi/Chaingame.json'
+import Chaingame_abi from '../abi/Chaingame.json'
 import styles from './styles.module.css'
 
 interface contract {
@@ -49,7 +39,7 @@ export const getServerSideProps: () => Promise<{
   props: { contracts: contract[] }
 }> = async () => {
   const res = await fetch(
-    'https://8787-test1883-chaingametest-7s9ufogv9y7.ws-us106.gitpod.io/contracts'
+    process.env.GATEWAY + '/contracts'
   )
   const contracts = await res.json()
   return { props: { contracts } }
@@ -65,11 +55,6 @@ export default function App(props: any) {
   const [name, setName] = useState<string | undefined>(undefined)
   const [description, setDescription] = useState<string | undefined>(undefined)
 
-  const regex = new RegExp('^[a-z0-9-]+$')
-  const debouncedName = useDebounce(name, 500)
-  const enabled = !!debouncedName && regex.test(debouncedName)
-
-  const { data, isLoading, signMessage, variables } = useSignMessage()
   const changeContract = async (c: contract, key: number) => {
     if (selectContract !== undefined && selectContract !== key) {
       document.getElementsByClassName(styles.selected)[0].style.background =
@@ -77,26 +62,22 @@ export default function App(props: any) {
     }
     if (selectContract !== key) {
       setSelectedContract(key)
-      const res = await fetch(
-        'https://8787-test1883-chaingametest-7s9ufogv9y7.ws-us106.gitpod.io/get-tokens',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ receiver: c.contract }),
-        }
-      )
+      const res = await fetch(process.env.GATEWAY + '/get-tokens', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ receiver: c.contract }),
+      })
       setTokens(await res.json())
     }
   }
 
   const signer = useEthersSigner()
-  const iface = new ethers.utils.Interface(Chaingame_abi)
+  const iface = new ethers.utils.Interface(Chaingame_abi.abi)
   const test = async () => {
-    createToken(Chaingame_abi, signer!, {
-      tIndex: 1,
-      destinationChainSelector: BigInt(12532609583862916517),
+    createToken(Chaingame_abi.abi, signer!, {
+      destinationChainSelector: 3,
       receiver: '0x274752bc001e54ef6b8aeae09e7944f33cc1858e',
       tokenType: 0,
       interval: 0,
@@ -109,54 +90,19 @@ export default function App(props: any) {
     })
   }
 
-  const requestBody: WorkerRequest = {
-    name: `${debouncedName}.offchaindemo.eth`,
-    owner: address!,
-    addresses: { '60': address },
-    texts: { description },
-    signature: {
-      hash: data!,
-      message: variables?.message!,
-    },
-  }
-
   return (
     <>
       <Head>
-        <title>Offchain ENS Registrar</title>
-        <meta property="og:title" content="Offchain ENS Registrar" />
-        <meta
-          name="description"
-          content="Quick demo of how offchain ENS names work"
-        />
-        <meta
-          property="og:description"
-          content="Quick demo of how offchain ENS names work"
-        />
+        <title>Chaingame</title>
+        <meta property="og:title" content="Chaingame" />
+        <meta name="description" content="Buy Dynamic NFTs on the go" />
+        <meta property="og:description" content="Buy Dynamic NFTs on the go" />
       </Head>
-
-      {/* <Spacer /> */}
-
       <Page>
-        <Header>
-          <HeaderLogo>ChainGame</HeaderLogo>
-          <HeaderNav>
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <div>Developer Mode</div> <Toggle size="small" />{' '}
-            </div>
-            <ConnectButton showBalance={false} />
-          </HeaderNav>
-        </Header>
+        <Header />
         <Sidebar>
           <Input
             label=""
-            parentStyles={{ backgroundColor: 'transparent !important' }}
             icon={<MagnifyingGlassSimpleSVG />}
             placeholder="Search contract"
           />

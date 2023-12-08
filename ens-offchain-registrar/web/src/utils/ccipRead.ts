@@ -1,6 +1,6 @@
 import { ethers } from 'ethers'
 
-import { abi } from '../abi/Chaingame.json'
+import Chaingame_abi from '../abi/Chaingame.json'
 
 async function httpcall(urls: string[], to: string, callData: string) {
   console.log(to)
@@ -25,7 +25,7 @@ async function durin_call(
   signer: ethers.providers.JsonRpcSigner,
   dataObject: ethers.utils.Deferrable<ethers.providers.TransactionRequest>
 ) {
-  const iface = new ethers.utils.Interface(abi)
+  const iface = new ethers.utils.Interface(Chaingame_abi.abi)
   const { sender, urls, callData, callbackFunction, extraData } =
     iface.parseError(await signer.call(dataObject)).args
   const to = await dataObject.to

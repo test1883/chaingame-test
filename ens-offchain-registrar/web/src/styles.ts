@@ -20,6 +20,20 @@ export const Page = styled.div`
     'sidebar content right';
 `
 
+export const ContractPage = styled.div`
+    display: grid;
+  height: 100vh;
+  width: 100vw;
+  padding: 30px;
+  grid-gap: 1rem;
+  grid-template-columns: 1.5fr 0.75fr;
+  grid-template-rows: 70px auto;
+  grid-template-areas:
+    'header header'
+    'content right';
+
+`
+
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -31,6 +45,8 @@ export const Input = styled(ThorinInput)`
   background: none;
 `
 export const CardTemp = styled(ThorinCard)`
+  display: flex;
+  flex-direction: column;
   width: 100%;
   align-items: center;
   gap: 1.5rem;
@@ -38,6 +54,7 @@ export const CardTemp = styled(ThorinCard)`
   background: rgba(0, 0, 0, 0.65);
   backdrop-filter: saturate(180%) blur(10px);
   border: 0px;
+  justify-content: center;
 `
 export const Header = styled(CardTemp)`
   display: flex;
@@ -49,11 +66,15 @@ export const HeaderLogo = styled.div``
 export const HeaderNav = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: flex-end;
+  gap: 40px;
+  width: 100%;
+  font-weight: bold;
 `
 
 export const Sidebar = styled(CardTemp)`
   grid-area: sidebar;
+  justify-content: flex-start;
 `
 export const Content = styled(CardTemp)`
   grid-area: content;
@@ -78,7 +99,7 @@ export const Link = styled.a.attrs({
 )
 
 export const Button = styled(ThorinButton)`
-  background-color: #1a43bf;
+  background-color: #1A43BF;
 `
 
 export const Helper = styled(ThorinHelper)`

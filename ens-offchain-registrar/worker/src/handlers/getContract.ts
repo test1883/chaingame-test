@@ -2,11 +2,11 @@ import type { IRequest } from 'itty-router'
 import zod from 'zod'
 
 import { Env } from '../env'
-import { get } from './functions/get'
+import { createKysely } from '../db/kysely'
 
 export async function getContract(request: IRequest, env: Env) {
   const schema = zod.object({
-    contract: zod.string(),
+    owner: zod.string(),
   })
   const safeParse = schema.safeParse(request.params)
 
@@ -15,14 +15,20 @@ export async function getContract(request: IRequest, env: Env) {
     return Response.json(response, { status: 400 })
   }
 
-  const { contract } = safeParse.data
-  const contractData = await get(contract, env)
+  const { owner } = safeParse.data
 
-  if (contractData === null) {
+  const db = createKysely(env)
+  const record = await db
+    .selectFrom('contracts')
+    .selectAll()
+    .where('owner', '=', owner)
+    .executeTakeFirst()
+
+  if (record === undefined) {
     return new Response('contract not found', { status: 404 })
   }
 
-  return Response.json(contractData, {
+  return Response.json(record, {
     status: 200,
   })
 }

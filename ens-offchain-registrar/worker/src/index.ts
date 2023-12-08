@@ -15,7 +15,7 @@ const router = Router()
 router
   .all('*', preflight)
   .get('/ccip/*', (request, env) => getCcipRead(request, env))
-  .get('/get/:contract', (request, env) => getContract(request, env))
+  .get('/get/:owner', (request, env) => getContract(request, env))
   .get('/contracts', (request, env) => getContracts(env))
   .post('/set', (request, env) => setContract(request, env))
   .post('/get-tokens', (request, env) => getTokens(request, env))
