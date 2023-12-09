@@ -3,6 +3,7 @@ import {
   Card as ThorinCard,
   Helper as ThorinHelper,
   Input as ThorinInput,
+  ScrollBox as ThorinScroll,
   mq,
 } from '@ensdomains/thorin'
 import styled, { css } from 'styled-components'
@@ -21,7 +22,7 @@ export const Page = styled.div`
 `
 
 export const ContractPage = styled.div`
-    display: grid;
+  display: grid;
   height: 100vh;
   width: 100vw;
   padding: 30px;
@@ -31,7 +32,6 @@ export const ContractPage = styled.div`
   grid-template-areas:
     'header header'
     'content right';
-
 `
 
 export const Form = styled.form`
@@ -74,7 +74,6 @@ export const HeaderNav = styled.div`
 
 export const Sidebar = styled(CardTemp)`
   grid-area: sidebar;
-  justify-content: flex-start;
 `
 export const Content = styled(CardTemp)`
   grid-area: content;
@@ -99,7 +98,7 @@ export const Link = styled.a.attrs({
 )
 
 export const Button = styled(ThorinButton)`
-  background-color: #1A43BF;
+  background-color: #1a43bf;
 `
 
 export const Helper = styled(ThorinHelper)`
@@ -128,8 +127,9 @@ export const Contract = styled.div`
   padding: 5px;
   border-radius: 30px;
 `
-export const NFTView = styled.div`
+export const NFTView = styled(ThorinScroll)`
   display: grid;
   grid-template-columns: 1fr 1fr;
   width: 100%;
+  height: 350px;
 `

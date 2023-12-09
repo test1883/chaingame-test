@@ -5,13 +5,12 @@ import {
   Toggle,
   Typography,
 } from '@ensdomains/thorin'
-import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { ethers } from 'ethers'
 import Head from 'next/head'
-import Image from 'next/image'
 import { useState } from 'react'
-import { useAccount, useSignMessage } from 'wagmi'
+import { useAccount } from 'wagmi'
 
+import Header from '@/components/Header'
 import { NFT } from '@/components/NFT'
 import {
   Content,
@@ -24,7 +23,6 @@ import {
 } from '@/styles'
 import { useEthersSigner } from '@/utils/ethers'
 import { createToken } from '@/utils/functions'
-import Header from '@/components/Header'
 
 import Chaingame_abi from '../abi/Chaingame.json'
 import styles from './styles.module.css'
@@ -34,13 +32,12 @@ interface contract {
   contract: string
   description: string
   avatar: string
+  destination_chain_selector: number
 }
 export const getServerSideProps: () => Promise<{
   props: { contracts: contract[] }
 }> = async () => {
-  const res = await fetch(
-    process.env.GATEWAY + '/contracts'
-  )
+  const res = await fetch(process.env.NEXT_PUBLIC_GATEWAY + '/contracts')
   const contracts = await res.json()
   return { props: { contracts } }
 }
@@ -52,17 +49,21 @@ export default function App(props: any) {
     undefined
   )
   const [tokens, setTokens] = useState<any>(undefined)
-  const [name, setName] = useState<string | undefined>(undefined)
-  const [description, setDescription] = useState<string | undefined>(undefined)
 
   const changeContract = async (c: contract, key: number) => {
     if (selectContract !== undefined && selectContract !== key) {
-      document.getElementsByClassName(styles.selected)[0].style.background =
-        'none'
+      if (
+        document.getElementsByClassName(styles.selecter)[0] instanceof
+        HTMLElement
+      ) {
+        ;(
+          document.getElementsByClassName(styles.selected)[0] as HTMLElement
+        ).style.background = 'none'
+      }
     }
     if (selectContract !== key) {
       setSelectedContract(key)
-      const res = await fetch(process.env.GATEWAY + '/get-tokens', {
+      const res = await fetch(process.env.NEXT_PUBLIC_GATEWAY + 'get-tokens', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -99,7 +100,7 @@ export default function App(props: any) {
         <meta property="og:description" content="Buy Dynamic NFTs on the go" />
       </Head>
       <Page>
-        <Header />
+        <Header type="user" />
         <Sidebar>
           <Input
             label=""
@@ -118,7 +119,7 @@ export default function App(props: any) {
                   }}
                   key={key}
                 >
-                  <Image
+                  <img
                     src={c.avatar}
                     width="50"
                     height="50"
@@ -134,6 +135,11 @@ export default function App(props: any) {
                           c.contract.length - 1
                         )}
                     </Typography>
+                    <Typography color="greyLight">
+                      {c.description.length > 15
+                        ? c.description.slice(0, 15) + '...'
+                        : c.description}
+                    </Typography>
                   </div>
                 </Contract>
               )
@@ -146,12 +152,7 @@ export default function App(props: any) {
             icon={<MagnifyingGlassSimpleSVG />}
             placeholder="Search NFT"
           />
-          {tokens !== undefined && (
-            <NFTView>
-              {JSON.stringify(tokens)}
-              <NFT {...tokens[0]} />
-            </NFTView>
-          )}
+          <NFTView>{tokens !== undefined && <NFT {...tokens[0]} />}</NFTView>
         </Content>
         <Right>
           <Button onClick={test}>H</Button>

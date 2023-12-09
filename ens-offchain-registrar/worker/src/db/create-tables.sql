@@ -6,7 +6,8 @@ CREATE TABLE IF NOT EXISTS contracts (
 	owner VARCHAR(30) NOT NULL,
 	contract VARCHAR(30) NOT NULL PRIMARY KEY,
 	description TEXT NOT NULL,
-    avatar TEXT NOT NULL
+    avatar TEXT NOT NULL,
+    destination_chain_selector INT NOT NULL
 );
 CREATE TABLE IF NOT EXISTS tokens (
 	t_index INT AUTO_INCREMENT,

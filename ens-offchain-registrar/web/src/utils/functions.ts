@@ -12,17 +12,29 @@ interface Token {
   onLoop: number
   duration: number
 }
-
 export const registerContract = async () => {}
+
+export const getPrice = async (Chaingame_abi: any, tokenType: number, duration: number, interval: number, nLinks: number, signer: ethers.providers.JsonRpcSigner) => {
+  const contract = new ethers.Contract("0xDDf58125Eb138FD3Ec6B667479674CFAd59eA356", Chaingame_abi, signer)
+  const price = await contract.getBalance(tokenType, duration, interval, nLinks)
+  return ethers.utils.formatEther(price)
+}
+
+export const getBalance = async (Chaingame_abi: any, address: string, signer: ethers.providers.JsonRpcSigner) => {
+  const contract = new ethers.Contract("0xDDf58125Eb138FD3Ec6B667479674CFAd59eA356", Chaingame_abi, signer)
+  const balance = await contract.getBalance(address)
+  return ethers.utils.formatEther(balance)
+} 
+
 export const createToken = async (
   Chaingame_abi: any,
   signer: ethers.providers.JsonRpcSigner,
-  token: Token
+  token: Token,
 ) => {
   const iface = new ethers.utils.Interface(Chaingame_abi)
-  const price = useContract
+  const price = await getPrice(Chaingame_abi, token.tokenType, token.duration, token.interval, token.links.length, signer)
   await durin_call(signer!, {
-    to: '0x41b07186f7311f71a3165ff21614059cf2b03446',
+    to: '0xDDf58125Eb138FD3Ec6B667479674CFAd59eA356',
     data: iface.encodeFunctionData('createToken', [
       token.destinationChainSelector,
       token.receiver,
@@ -36,6 +48,7 @@ export const createToken = async (
     value: ethers.utils.parseUnits(price, 18),
   })
 }
+
 export const buyToken = async (
   Chaingame_abi: any,
   signer: ethers.providers.JsonRpcSigner,

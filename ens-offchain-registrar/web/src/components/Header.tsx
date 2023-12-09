@@ -1,8 +1,10 @@
-import { Header as Hd, HeaderLogo, HeaderNav } from '@/styles'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
+import Link from 'next/link'
 import React from 'react'
 
-const Header = () => {
+import { Header as Hd, HeaderLogo, HeaderNav } from '@/styles'
+
+const Header = (props: { type: 'user' | 'contract' }) => {
   return (
     <Hd>
       <HeaderLogo>ChainGame</HeaderLogo>
@@ -14,7 +16,11 @@ const Header = () => {
             justifyContent: 'center',
           }}
         >
-          <div>Dev Mode</div>
+          {props.type === 'user' ? (
+            <Link href="/contract">Dev Mode</Link>
+          ) : (
+            <Link href="/">User Mode</Link>
+          )}
         </div>
         <ConnectButton showBalance={false} />
       </HeaderNav>

@@ -9,13 +9,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'rose-melodic-felidae-510.mypinata.cloud',
-        port: '',
-      },
-      {
-        protocol: 'https',
-        hostname: 'ipfs.io',
-        port: '',
+        hostname: '**',
       },
     ],
   },

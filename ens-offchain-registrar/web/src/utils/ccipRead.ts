@@ -6,11 +6,10 @@ async function httpcall(urls: string[], to: string, callData: string) {
   console.log(to)
   const args = { sender: to.toLowerCase(), data: callData.toLowerCase() }
   for (const url of urls) {
-    const queryUrl =
-      'https://8787-test1883-chaingametest-7s9ufogv9y7.ws-us106.gitpod.io/ccip/{sender}/{data}.json'.replace(
-        /\{([^}]*)\}/g,
-        (match, p1: 'sender' | 'data') => args[p1]
-      )
+    const queryUrl = url.replace(
+      /\{([^}]*)\}/g,
+      (match, p1: 'sender' | 'data') => args[p1]
+    )
     const response = await fetch(queryUrl)
     const result = await response.text()
     if (response.status >= 400 && response.status <= 499) {

@@ -1,7 +1,6 @@
 import { createKysely } from '../../db/kysely'
 import { Env } from '../../env'
 import { Contract } from '../../models'
-// import { stringifyNameForDb } from './utils'
 
 export async function set(contractData: Contract, env: Env) {
   const db = createKysely(env)

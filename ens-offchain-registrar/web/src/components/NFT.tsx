@@ -1,7 +1,6 @@
 'use client'
 
 import { Heading, Card as ThorinCard } from '@ensdomains/thorin'
-import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
@@ -46,7 +45,7 @@ export function NFT(props: Props) {
   return (
     <Card>
       <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-        <Image
+        <img
           src="https://rose-melodic-felidae-510.mypinata.cloud/ipfs/Qma4Av2JrmWc7bRymRJZy5fk6fDfFTaQ54efMmJvSZoDbu?_gl=1*1e4q9pg*_ga*MjAwNzgzMjYyOC4xNjk1MDM5Njgx*_ga_5RMPXG14TE*MTcwMTMxNzU5Ny45LjEuMTcwMTMxNzgwMi41MC4wLjA."
           alt="cover"
           width={0}

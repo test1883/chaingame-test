@@ -5,6 +5,7 @@ export const ZodContract = z.object({
   contract: z.string(),
   description: z.string(),
   avatar: z.string(),
+  destination_chain_selector: z.number(),
 })
 
 export const ZodContractWithSignature = ZodContract.extend({
@@ -60,6 +61,7 @@ export interface ContractInKysely {
   contract: string
   description: string
   avatar: string
+  destination_chain_selector: number
 }
 
 export interface TokenInKysely {
